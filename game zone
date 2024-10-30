@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mini Game</h1>
+    
+    <div id="farming">
+        <button id="farmingButton">Farming: Tap to earn 30 coins</button>
+        <div id="farmingTimer"></div>
+    </div>
+    
+    <div class="options">
+        <button onclick="showHome()">Home</button>
+        <button onclick="showTasks()">Tasks</button>
+        <button onclick="showFriends()">Friends</button>
+        <button onclick="showAirdrop()">Airdrop</button>
+    </div>
+
+    <div id="profile" style="margin-top: 20px;">
+        <button onclick="showProfile()">Profile</button>
+    </div>
+
+    <div id="coinsDisplay" style="margin-top: 20px;">
+        Coins: <span id="coins">0</span>
+    </div>
+</div>
+
+<script>
+    let coins = 0;
+    let farmingCooldown = false;
+
+    // Farming functionality
+    document.getElementById("farmingButton").addEventListener("click", function() {
+        if (!farmingCooldown) {
+            coins += 30;
+            document.getElementById("coins").innerText = coins;
+            startFarmingCooldown();
+        } else {
+            alert("You must wait 6 hours before tapping again.");
+        }
+    });
+
+    function startFarmingCooldown() {
+        farmingCooldown = true;
+        document.getElementById("farmingTimer").innerText = "Next tap available in 6 hours.";
+
+        setTimeout(() => {
+            farmingCooldown = false;
+            document.getElementById("farmingTimer").innerText = "";
+        }, 21600000); // 6 hours in milliseconds
+    }
+
+    // Navigation functions
+    function showHome() {
+        alert("Home Page");
+    }
+
+    function showTasks() {
+        alert("Tasks Page");
+    }
+
+    function showFriends() {
+        alert("Friends Page");
+    }
+
+    function showAirdrop() {
+        alert("Airdrop Page");
+    }
+
+    function showProfile() {
+        alert("Profile Page");
+    }
+
+    // Function to send a message to Telegram (example)
+    function sendMessageToTelegram(chatId, message) {
+        const url = https://api.telegram.org/bot${TOKEN}/sendMessage;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => console.log('Message sent:', data))
+        .catch(error => console.error('Error sending message:', error));
+    }
+</script>
+
+</body>
+</html>
